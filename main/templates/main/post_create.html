@@ -1,0 +1,73 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Create New Post{% endblock %}
+
+{% block content %}
+<style>
+    form {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 600px;
+        margin: 20px auto;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1.5px solid #ccc;
+        font-size: 1rem;
+        resize: vertical;
+    }
+    textarea:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+    input[type="file"] {
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+    button {
+        background-color: #007bff;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    a {
+        display: inline-block;
+        margin-top: 15px;
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<h2>Create New Post</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <label for="content">Post Content:</label><br>
+    <textarea name="content" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="image">Attach Image (optional):</label><br>
+    <input type="file" name="image" accept="image/*"><br><br>
+
+    <button type="submit">Post</button>
+</form>
+
+<a href="{% url 'home' %}">Back to Home</a>
+{% endblock %}

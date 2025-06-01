@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>All Posts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 30px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+        .post {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+            transition: box-shadow 0.3s ease;
+        }
+        .post:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        .author {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+        .content {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            line-height: 1.4;
+            color: #555;
+        }
+        .post-image {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .created-at {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        .view-link {
+            display: inline-block;
+            background-color: #27ae60;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .view-link:hover {
+            background-color: #1e8449;
+        }
+        hr {
+            border: none;
+            border-bottom: 1px solid #eee;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Posts</h1>
+    {% for post in posts %}
+        <div class="post">
+            <p class="author">{{ post.author.username }}</p>
+            <p class="content">{{ post.content }}</p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="Post Image" class="post-image" />
+            {% endif %}
+            <p class="created-at">{{ post.created_at|date:"F j, Y, g:i a" }}</p>
+            <a href="{% url 'post_detail' post.id %}" class="view-link">View Post</a>
+        </div>
+        <hr>
+    {% empty %}
+        <p style="text-align:center; color:#999;">No posts yet.</p>
+    {% endfor %}
+</body>
+</html>
+
