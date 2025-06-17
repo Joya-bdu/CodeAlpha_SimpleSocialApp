@@ -100,20 +100,29 @@
 </head>
 <body>
 
-    <div class="post">
-        <div class="author-info">
-            <img src="{{ profile.profile_pic.url }}" alt="{{ post.author.username }}'s profile picture" />
-            <div>
-                <h1>{{ post.author.username }}'s Post</h1>
-                <p class="followers">Followers: {{ profile.followers.count }} | Following: {{ post.author.following.count }}</p>
-            </div>
-        </div>
+    <div class="author-info">
+    {% if profile.profile_pic %}
+        <img src="{{ profile.profile_pic.url }}" alt="{{ post.author.username }}'s profile picture" />
+    {% else %}
+        <img src="{% static 'images/default-profile.png' %}" alt="Default profile picture" />
+    {% endif %}
+    <div>
+        <h1>{{ post.author.username }}'s Post</h1>
+        <p class="followers">
+            Followers: {{ profile.followers.count }} |
+            Following: {{ post.author.following.count }}
+        </p>
+    </div>
+</div>
+
 
         <div class="content">{{ post.content }}</div>
+{% if profile.profile_pic %}
+    <img src="{{ profile.profile_pic.url }}" alt="{{ post.author.username }}'s profile picture" />
+{% else %}
+    <img src="{% static 'images/default-profile.png' %}" alt="Default profile picture" />
+{% endif %}
 
-        {% if post.image %}
-            <img src="{{ post.image.url }}" alt="Post image" class="post-image" />
-        {% endif %}
 
         <!-- লাইক বাটন -->
        <form action="{% url 'like_post' post.id %}" method="POST">
